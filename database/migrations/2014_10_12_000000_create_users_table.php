@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('field');
             $table->string('address');
             $table->integer('contact');
+            $table->boolean('admin');
             $table->timestamps();
         });
     }

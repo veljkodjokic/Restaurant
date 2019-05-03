@@ -3,12 +3,19 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
     use Notifiable;
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'password',
+        'name', 'password', 'birthday', 'field', 'address', 'contact', 'admin'
     ];
 
     /**
@@ -25,7 +32,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'admin'
     ];
 
     /**
@@ -36,4 +43,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Checking if authenticated user has admin rights
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        if(Auth::user()->admin)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
