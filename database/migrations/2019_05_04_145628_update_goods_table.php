@@ -16,7 +16,7 @@ class UpdateGoodsTable extends Migration
         Schema::table('goods', function($table)
         {
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
@@ -27,6 +27,10 @@ class UpdateGoodsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('goods', function($table)
+        {
+            $table->dropForeign(['category_id']);
+            $table->dropColumn('category_id');
+        });
     }
 }
