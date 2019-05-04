@@ -1,7 +1,7 @@
 @auth()
-    @include('layouts.navbars.navs.auth')
+    @if(\Auth::user()->isAdmin())
+        @include('layouts.navbars.navs.auth')
+    @else
+        @include('layouts.navbars.navs.auth')
+    @endif
 @endauth
-    
-@guest()
-    @include('layouts.navbars.navs.guest')
-@endguest
