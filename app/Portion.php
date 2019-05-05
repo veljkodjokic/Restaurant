@@ -3,16 +3,22 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Goods;
 
-class Category extends Model
+class Portion extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'categories';
+    protected $table = 'portions';
+
+    /**
+     * The Primary key used by the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
 
     /**
      * The attributes that are mass assignable.
@@ -20,15 +26,14 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'portion', 'price', 'goods_id'
     ];
 
     /**
      * Defining relationship with Goods
      */
-    public function goods()
+    public function good()
     {
-        return $this->hasMany('\App\Goods','category_id');
+        return $this->belongsTo('\App\Goods');
     }
-
 }

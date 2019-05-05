@@ -15,10 +15,8 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('goods_id');
             $table->unsignedBigInteger('invoice_id');
             $table->integer('quantity');
-            $table->foreign('goods_id')->references('id')->on('goods')->onDelete('cascade');
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
             $table->timestamps();
         });

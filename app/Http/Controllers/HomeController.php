@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\User;
+use App\Category;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -21,6 +24,28 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.admindash');
+        if(Auth::User()->isAdmin()) {
+            return view('admin.admindash');
+        }
+        else {
+            $categories=Category::all();
+            return view('dashboard',compact("categories"));
+        }
+    }
+
+    /**
+     * Show the goods by selected category.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getCategory($name)
+    {
+        $category=Category::where('name',$name)->first();
+        $goods=$category->goods()->distinct('name')->get('name');
+        foreach ($goods as $good)
+            dd($good->id);
+        $categories=Category::all();
+        return view('dashboard',compact("categories"));
+
     }
 }

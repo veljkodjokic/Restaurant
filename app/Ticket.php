@@ -19,6 +19,6 @@ class Ticket extends Model
      * @var array
      */
     protected $fillable = [
-        'goods_id', 'invoice_id', 'quantity'
+        'portion_id', 'invoice_id', 'quantity'
     ];
 }
