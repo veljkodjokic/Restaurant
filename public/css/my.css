@@ -13,3 +13,7 @@
     -moz-transition: transform .1s ease-out;
     transition: transform .1s ease-out;
 }
+
+.dash-below{
+    padding-bottom: 20px;
+}

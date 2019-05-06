@@ -34,6 +34,14 @@ class Portion extends Model
      */
     public function good()
     {
-        return $this->belongsTo('\App\Goods');
+        return $this->belongsTo('\App\Goods','goods_id');
+    }
+
+    /**
+     * Defining relationship with Ticket
+     */
+    public function tickets()
+    {
+        return $this->hasMany('\App\Ticket');
     }
 }

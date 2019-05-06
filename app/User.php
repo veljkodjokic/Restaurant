@@ -45,6 +45,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * Defining relationship with Invoice
+     */
+    public function invoices()
+    {
+        return $this->hasMany('\App\Invoice');
+    }
+
+    /**
      * Checking if authenticated user has admin rights
      * @return bool
      */

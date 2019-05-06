@@ -4,18 +4,17 @@
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
         <div class="container-fluid">
             <div class="header-body">
-                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block dash-below" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block dash-below" href="{{ route('home') }}">Dashboard&nbsp;></a><a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ '/category/'.$category->name }}">&nbsp;{{ $category->name }}</a>
                 <div class="row">
                     <!-- Card stats -->
-                    @foreach($categories as $category)
+                    @foreach($goods as $good)
 
                         <div class="col-xl-3 col-lg-6 breath">
                             <div class="card card-stats mb-4 mb-xl-3">
-                                <a href="{{ url('/category/'.$category->name) }}">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <span class="h2 font-weight-bold mb-0">{{ $category->name }}</span>
+                                            <span class="h2 font-weight-bold mb-0">{{ $good->name }}</span>
                                         </div>
                                         <div class="col-auto">
                                             @if($category->name=="Appetizers")
@@ -38,11 +37,10 @@
                                         </div>
                                     </div>
                                     <p class="mt-3 mb-0 text-muted text-sm">
-                                        <span class="text-success mr-2"><i class="fas fa-concierge-bell"></i> {{ $category->goods()->distinct('name')->count('name') }}</span>
-                                        <span class="text-nowrap">Goods count</span>
+                                        <span class="text-success mr-2"><i class="fas fa-box"></i> {{ $good->portions()->count() }}</span>
+                                        <span class="text-nowrap">Portion count</span>
                                     </p>
                                 </div>
-                                </a>
                             </div>
                         </div>
                     @endforeach
@@ -51,19 +49,19 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container-fluid mt--7">
-            <div class="row">
-                <div class="col-xl-8 mb-5 mb-xl-0">
-
-                </div>
-                <div class="col-xl-4">
-
-                </div>
-            </div>
-            <div class="row mt-5">
+        <div class="row">
+            <div class="col-xl-8 mb-5 mb-xl-0">
 
             </div>
+            <div class="col-xl-4">
+
+            </div>
+        </div>
+        <div class="row mt-5">
+
+        </div>
 
         @include('layouts.footers.auth')
     </div>

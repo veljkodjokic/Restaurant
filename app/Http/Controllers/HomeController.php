@@ -41,11 +41,8 @@ class HomeController extends Controller
     public function getCategory($name)
     {
         $category=Category::where('name',$name)->first();
-        $goods=$category->goods()->distinct('name')->get('name');
-        foreach ($goods as $good)
-            dd($good->id);
-        $categories=Category::all();
-        return view('dashboard',compact("categories"));
+        $goods=$category->goods()->get();
+        return view('category',compact("goods","category"));
 
     }
 }

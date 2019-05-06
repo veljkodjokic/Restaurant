@@ -21,4 +21,21 @@ class Invoice extends Model
     protected $fillable = [
         'user_id', 'amount'
     ];
+
+    /**
+     * Defining relationship with User
+     */
+    public function user()
+    {
+        return $this->belongsTo('\App\User');
+    }
+
+    /**
+     * Defining relationship with Ticket
+     */
+    public function tickets()
+    {
+        return $this->hasMany('\App\Ticket');
+    }
+
 }
