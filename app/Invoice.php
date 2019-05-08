@@ -38,4 +38,20 @@ class Invoice extends Model
         return $this->hasMany('\App\Ticket');
     }
 
+    /**
+     * Returning Total
+     */
+    public function showTotal()
+    {
+        $total=0.00;
+        $tickets=$this->tickets()->get();
+        foreach ($tickets as $ticket){
+            $portion=$ticket->portion()->first();
+            $total+=$portion->price*$ticket->quantity;
+        }
+        $this->amount=$total;
+        $this->save();
+        return $total;
+    }
+
 }

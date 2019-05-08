@@ -8,9 +8,13 @@
                 <div class="row">
                     <!-- Card stats -->
                     @foreach($goods as $good)
+                        <?php
+                        $portions=$good->portions()->get();
+                        ?>
 
-                        <div class="col-xl-3 col-lg-6 breath">
-                            <div class="card card-stats mb-4 mb-xl-3">
+                        <div class="col-xl-3 col-lg-6">
+                            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="card card-stats mb-4 mb-xl-3 pointer breath">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
@@ -42,8 +46,40 @@
                                     </p>
                                 </div>
                             </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-inner">
+                                <div class=" dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Chose Portion</h6>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                @foreach($portions as $portion)
+                                <a href="#" onclick="add({{ $portion->id }})" class="dropdown-item">
+                                    <i class="ni ni-button-play"></i>
+                                    <span>{{ $portion->portion }} ({{ $portion->price }})</span>
+                                </a>
+                                @endforeach
+                            </div>
                         </div>
+
                     @endforeach
+
+                    <script type="text/javascript">
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        function add(id){
+                            $.ajax({
+                                type:'POST',
+                                url:'/add-portion',
+                                data:{id:id},
+                                success:function(){
+                                    location.reload();
+                                }
+                            });
+                        }
+                    </script>
 
                 </div>
             </div>

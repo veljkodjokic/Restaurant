@@ -28,6 +28,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/category/{name}','HomeController@getCategory');
 
+    Route::post('/open-ticket', 'TicketController@openNew');
+    Route::post('/save-ticket', 'TicketController@saveTicket');
+    Route::post('/add-portion', 'TicketController@addPortion');
+
     //Admin users only
     Route::middleware('admin')->group(function () {
         Route::get('admin', function () {

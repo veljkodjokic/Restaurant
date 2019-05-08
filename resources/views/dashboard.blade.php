@@ -3,14 +3,14 @@
 @section('content')
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
         <div class="container-fluid">
-            <div class="header-body">
+            <div class="header-body" >
                 <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block dash-below" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
                 <div class="row">
                     <!-- Card stats -->
                     @foreach($categories as $category)
 
-                        <div class="col-xl-3 col-lg-6 breath">
-                            <div class="card card-stats mb-4 mb-xl-3">
+                        <div class="col-xl-3 col-lg-6">
+                            <div class="card card-stats mb-4 mb-xl-3 breath pointer">
                                 <a href="{{ url('/category/'.$category->name) }}">
                                 <div class="card-body">
                                     <div class="row">
@@ -46,6 +46,7 @@
                             </div>
                         </div>
                     @endforeach
+
 
                 </div>
             </div>

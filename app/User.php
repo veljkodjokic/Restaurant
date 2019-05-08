@@ -67,4 +67,34 @@ class User extends Authenticatable
             return false;
         }
     }
+
+    /**
+     * Checking if user has open invoice
+     * @return bool
+     */
+    public function hasOpenInvoice()
+    {
+
+        $invoices=Auth::user()->invoices()->where("status",0)->get()->count();
+        if($invoices)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Creating new Invoice instance
+     */
+    public function openInvoice()
+    {
+        $user=Auth::user();
+        $invoice= new Invoice();
+        $invoice->user_id=$user->id;
+        $invoice->amount=0;
+        $invoice->save();
+    }
 }
