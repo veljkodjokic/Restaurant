@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -96,5 +97,34 @@ class User extends Authenticatable
         $invoice->user_id=$user->id;
         $invoice->amount=0;
         $invoice->save();
+    }
+
+    /**
+     * Query scope to get this months invoices
+     */
+    public function myMonthInv()
+    {
+        return $this->invoices()
+            ->where('status', 1)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->count();
+    }
+
+    /**
+     * Query scope to get this months total
+     */
+    public function myMonthTotal()
+    {
+        $invoices= $this->invoices()
+            ->where('status', 1)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->get();
+        $total=0;
+        foreach ($invoices as $invoice)
+            $total+=$invoice->showTotal();
+
+        return $total;
     }
 }
