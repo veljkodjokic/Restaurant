@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="header-body">
                 <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block dash-below" href="{{ route('home') }}">Dashboard&nbsp;></a><a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ '/category/'.$category->name }}">&nbsp;{{ $category->name }}</a>
-                <div class="row">
+                <div class="row" id="row">
                     <!-- Card stats -->
                     @foreach($goods as $good)
                         <?php
@@ -78,6 +78,24 @@
                                     location.reload();
                                 }
                             });
+                        }
+
+                        var timer;
+                        function up()
+                        {
+                            timer = setTimeout(function()
+                            {
+                                var keywords = $('#search_bar').val();
+                                var category= "{{$category->name}}";
+                                $.post('/search-goods', {keywords: keywords, category:category}, function(data)
+                                {
+                                    $('#row').html(data);
+                                });
+                            }, 500);
+                        }
+                        function down()
+                        {
+                            clearTimeout(timer);
                         }
                     </script>
 

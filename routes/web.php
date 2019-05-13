@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+    Route::get('activity', 'ProfileController@getActivity')->name('activity');
 
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
@@ -32,10 +33,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/save-ticket', 'TicketController@saveTicket');
     Route::post('/add-portion', 'TicketController@addPortion');
 
+    Route::post('/search-category', 'HomeController@searchCategory');
+    Route::post('/search-goods', 'HomeController@searchGoods');
+
     //Admin users only
     Route::middleware('admin')->group(function () {
-        Route::get('admin', function () {
-            return view('admin');
-        });
+        Route::resource('goods', 'GoodsController', ['except' => ['show']]);
     });
 });

@@ -29,6 +29,18 @@ class UserRequest extends FormRequest
             'name' => [
                 'required', 'min:3'
             ],
+            'birthday' => [
+                'required', 'before:today'
+            ],
+            'field' => [
+                'required', 'min:3'
+            ],
+            'address' => [
+                'required', 'min:3'
+            ],
+            'contact' => [
+                'required', 'digits_between:6,11', 'numeric'
+            ],
             'email' => [
                 'required', 'email', Rule::unique((new User)->getTable())->ignore($this->route()->user->id ?? null)
             ],

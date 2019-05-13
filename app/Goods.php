@@ -26,7 +26,7 @@ class Goods extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'price', 'category_id'
+        'name', 'category_id'
     ];
 
     /**

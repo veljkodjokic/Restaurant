@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="header-body" >
                 <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block dash-below" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
-                <div class="row">
+                <div class="row" id="row">
                     <!-- Card stats -->
                     @foreach($categories as $category)
 
@@ -33,6 +33,10 @@
                                             @elseif($category->name=="Desserts")
                                                 <div class="icon icon-shape bg-pink text-white rounded-circle shadow">
                                                     <i class="fas fa-ice-cream"></i>
+                                                </div>
+                                            @else
+                                                <div class="icon icon-shape bg-red text-white rounded-circle shadow">
+                                                    <i class="far fa-question-circle"></i>
                                                 </div>
                                             @endif
                                         </div>
@@ -65,6 +69,24 @@
             <div class="row mt-5">
 
             </div>
+            <script>
+                var timer;
+                function up()
+                {
+                    timer = setTimeout(function()
+                    {
+                        var keywords = $('#search_bar').val();
+                        $.post('/search-category', {keywords: keywords}, function(data)
+                        {
+                            $('#row').html(data);
+                        });
+                    }, 500);
+                }
+                function down()
+                {
+                    clearTimeout(timer);
+                }
+            </script>
 
         @include('layouts.footers.auth')
     </div>

@@ -10,7 +10,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-search"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Search" type="text">
+                    <input class="form-control" placeholder="Search" id="search_bar" onkeydown="down()" onkeyup="up()" type="text">
                 </div>
             </div>
         </form>
@@ -35,7 +35,7 @@
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('My profile') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{ route('activity') }}" class="dropdown-item">
                         <i class="ni ni-calendar-grid-58"></i>
                         <span>{{ __('Activity') }}</span>
                     </a>

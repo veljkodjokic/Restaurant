@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Invoice;
 
 class ProfileController extends Controller
 {
@@ -42,5 +43,15 @@ class ProfileController extends Controller
         auth()->user()->update(['password' => Hash::make($request->get('password'))]);
 
         return back()->withPasswordStatus(__('Password successfully updated.'));
+    }
+
+    /**
+     * Return Activity view
+     */
+    public function getActivity()
+    {
+        $invoices=auth()->user()->invoices()->get();
+
+        return view('activity',compact("invoices"));
     }
 }

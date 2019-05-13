@@ -44,10 +44,50 @@
                                         </span>
                                     @endif
                                 </div>
+                                <div class="form-group{{ $errors->has('birthday') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-birthday">{{ __('Birthday') }}</label>
+                                    <input type="date" name="birthday" id="input-birthday" class="form-control form-control-alternative{{ $errors->has('birthday') ? ' is-invalid' : '' }}" placeholder="{{ __('Birthday') }}" value="{{ old('birthday', $user->birthday) }}" required>
+
+                                    @if ($errors->has('birthday'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('birthday') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('field') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-field">{{ __('Field of Expertise') }}</label>
+                                    <input type="text" name="field" id="input-field" class="form-control form-control-alternative{{ $errors->has('field') ? ' is-invalid' : '' }}" placeholder="{{ __('Field of Expertise') }}" value="{{ old('field', $user->field) }}" required>
+
+                                    @if ($errors->has('field'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('field') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('address') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-address">{{ __('Address') }}</label>
+                                    <input type="text" name="address" id="input-address" class="form-control form-control-alternative{{ $errors->has('address') ? ' is-invalid' : '' }}" placeholder="{{ __('Address') }}" value="{{ old('address', $user->address) }}" required>
+
+                                    @if ($errors->has('address'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('address') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('contact') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-contact">{{ __('Contact') }}</label>
+                                    <input type="number" name="contact" id="input-contact" class="form-control form-control-alternative{{ $errors->has('contact') ? ' is-invalid' : '' }}" placeholder="{{ __('Contact') }}" value="{{ old('contact', $user->contact) }}" required>
+
+                                    @if ($errors->has('contact'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('contact') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-password">{{ __('Password') }}</label>
-                                    <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" value="">
-                                    
+                                    <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" value="" required>
+
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
@@ -56,7 +96,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-password-confirmation">{{ __('Confirm Password') }}</label>
-                                    <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirm Password') }}" value="">
+                                    <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirm Password') }}" value="" required>
+                                </div>
+
+                                <div class="form-group{{ $errors->has('admin') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-admin">{{ __('Admin') }}</label>
+                                    <input type="hidden" name="admin" value="0">
+                                    <input type="checkbox" name="admin" id="input-admin" class="form form-alternative" value="1" @if($user->admin) checked @endif>
+
+                                    @if ($errors->has('admin'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('admin') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
 
                                 <div class="text-center">
