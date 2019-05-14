@@ -69,4 +69,35 @@ class TicketController extends Controller
             $ticket->save();
         }
     }
+
+    /**
+     * delete ticket
+     */
+    public function deleteTicket(Request $request)
+    {
+        $id=$request["id"];
+        $ticket=Ticket::find($id);
+
+        if ($ticket->quantity > 1){
+            $ticket->quantity--;
+            $ticket->save();
+            return \Redirect::back();
+        }
+        else
+            $ticket->delete();
+
+        return \Redirect::back();
+    }
+
+    /**
+     * delete invoice
+     */
+    public function deleteInvoice(Request $request)
+    {
+        $id=$request["id"];
+        $invoice=Invoice::find($id);
+        $invoice->delete();
+
+        return \Redirect::back();
+    }
 }

@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/open-ticket', 'TicketController@openNew');
     Route::post('/save-ticket', 'TicketController@saveTicket');
     Route::post('/add-portion', 'TicketController@addPortion');
+    Route::post('/delete-ticket', 'TicketController@deleteTicket');
+    Route::post('/delete-invoice', 'TicketController@deleteInvoice');
 
     Route::post('/search-category', 'HomeController@searchCategory');
     Route::post('/search-goods', 'HomeController@searchGoods');
@@ -39,5 +41,12 @@ Route::group(['middleware' => 'auth'], function () {
     //Admin users only
     Route::middleware('admin')->group(function () {
         Route::resource('goods', 'GoodsController', ['except' => ['show']]);
+
+        Route::get('/portions/show/{id}', 'PortionsController@index');
+        Route::get('/portions/create/{id}', 'PortionsController@create');
+        Route::get('/portions/{id}/edit', 'PortionsController@edit');
+        Route::post('/portions/store', ['as' => 'portions.store', 'uses' => 'PortionsController@store']);
+        Route::post('/portions/update', ['as' => 'portions.update', 'uses' => 'PortionsController@update']);
+        Route::post('/portions/delete', ['as' => 'portions.delete', 'uses' => 'PortionsController@delete']);
     });
 });

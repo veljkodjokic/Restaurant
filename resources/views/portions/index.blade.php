@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('Goods Management')])
+@extends('layouts.app', ['title' => __('Portions Management')])
 
 @section('content')
     @include('layouts.headers.cards')
@@ -10,10 +10,10 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">Goods</h3>
+                                <h3 class="mb-0">{{ $good->name }} Portions</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('goods.create') }}" class="btn btn-sm btn-primary">Add goods</a>
+                                <a href="/portions/create/{{ $good->id }}" class="btn btn-sm btn-primary">Add portions</a>
                             </div>
                         </div>
                     </div>
@@ -33,31 +33,28 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">{{ __('Name') }}</th>
-                                    <th scope="col">{{ __('Category') }}</th>
-                                    <th scope="col">{{ __('Portions') }}</th>
+                                    <th scope="col">{{ __('Portion') }}</th>
+                                    <th scope="col">{{ __('Price') }}</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($goods as $good)
+                                @foreach ($portions as $portion)
                                     <tr>
-                                        <td>{{ $good->name }}</td>
-                                        <td>{{ $good->category()->first()->name }}</td>
-                                        <td>{{ $good->portions()->count() }}</td>
+                                        <td>{{ $portion->portion }}</td>
+                                        <td>{{ $portion->price }}</td>
                                         <td class="text-right">
                                             <div class="dropdown">
                                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <form action="{{ route('goods.destroy', $good) }}" method="post">
+                                                    <form action="/portions/delete" method="post">
+                                                        <input type="hidden" name="id" value="{{ $portion->id }}"/>
                                                         @csrf
-                                                        @method('delete')
 
-                                                        <a class="dropdown-item" href="{{ route('goods.edit',$good) }}">{{ __('Edit') }}</a>
-                                                        <a class="dropdown-item" href="/portions/show/{{ $good->id }}">{{ __('Portions') }}</a>
-                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this good?") }}') ? this.parentElement.submit() : ''">
+                                                        <a class="dropdown-item" href="/portions/{{ $portion->id }}/edit">{{ __('Edit') }}</a>
+                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this portion?") }}') ? this.parentElement.submit() : ''">
                                                             {{ __('Delete') }}
                                                         </button>
                                                     </form>
@@ -68,11 +65,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                    <div class="card-footer py-4">
-                        <nav class="d-flex justify-content-end" aria-label="...">
-                            {{ $goods->links() }}
-                        </nav>
                     </div>
                 </div>
             </div>
