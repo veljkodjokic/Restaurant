@@ -89,6 +89,11 @@
                                     {{ __('Goods Management') }}
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('category.index') }}">
+                                    {{ __('Category Management') }}
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('User Management')])
+@extends('layouts.app', ['title' => __('Category Management')])
 
 @section('content')
     @include('layouts.headers.cards')
@@ -10,10 +10,10 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Users') }}</h3>
+                                <h3 class="mb-0">Goods</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">{{ __('Add user') }}</a>
+                                <a href="{{ route('category.create') }}" class="btn btn-sm btn-primary">Add category</a>
                             </div>
                         </div>
                     </div>
@@ -34,39 +34,27 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">{{ __('Name') }}</th>
-                                    <th scope="col">{{ __('Monthly Sales') }}</th>
-                                    <th scope="col">{{ __('Monthly Total') }}</th>
-                                    <th scope="col">{{ __('Email') }}</th>
-                                    <th scope="col">{{ __('Birthday') }}</th>
-                                    <th scope="col">{{ __('Creation Date') }}</th>
-                                    <th scope="col">{{ __('Rights') }}</th>
+                                    <th scope="col">{{ __('Goods') }}</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($categories as $category)
                                     <tr>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->myMonthInv() }}</td>
-                                        <td>{{ $user->myMonthTotal() }}</td>
-                                        <td>
-                                            <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
-                                        </td>
-                                        <td>{{ $user->birthday }}</td>
-                                        <td>{{ $user->created_at->format('d/m/Y H:i') }}</td>
-                                        <td>@if($user->admin) Admin @else Staff @endif</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->goods()->count() }}</td>
                                         <td class="text-right">
                                             <div class="dropdown">
                                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <form action="{{ route('user.destroy', $user) }}" method="post">
+                                                    <form action="{{ route('category.destroy', $category) }}" method="post">
                                                         @csrf
                                                         @method('delete')
 
-                                                        <a class="dropdown-item" href="{{ route('user.edit', $user) }}">{{ __('Edit') }}</a>
-                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this user?") }}') ? this.parentElement.submit() : ''">
+                                                        <a class="dropdown-item" href="{{ route('category.edit',$category) }}">{{ __('Edit') }}</a>
+                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this category?") }}') ? this.parentElement.submit() : ''">
                                                             {{ __('Delete') }}
                                                         </button>
                                                     </form>
@@ -80,7 +68,7 @@
                     </div>
                     <div class="card-footer py-4">
                         <nav class="d-flex justify-content-end" aria-label="...">
-                            {{ $users->links() }}
+                            {{ $categories->links() }}
                         </nav>
                     </div>
                 </div>

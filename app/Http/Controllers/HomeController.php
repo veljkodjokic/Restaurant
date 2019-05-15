@@ -78,4 +78,12 @@ class HomeController extends Controller
 
         return View::make('searched.goods')->with('searchGoods',$goods);
     }
+
+    public function getActivity()
+    {
+        $user=Auth::user();
+        $invoices=$user->invoices()->orderBy('updated_at', 'desc')->get();
+
+        return view('activity',compact("invoices"));
+    }
 }

@@ -27,7 +27,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::get('/category/{name}','HomeController@getCategory');
+    Route::get('/categories/{name}','HomeController@getCategory');
+
+    Route::get('/activity','HomeController@getActivity');
 
     Route::post('/open-ticket', 'TicketController@openNew');
     Route::post('/save-ticket', 'TicketController@saveTicket');
@@ -41,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Admin users only
     Route::middleware('admin')->group(function () {
         Route::resource('goods', 'GoodsController', ['except' => ['show']]);
+        Route::resource('category', 'CategoryController', ['except' => ['show']]);
 
         Route::get('/portions/show/{id}', 'PortionsController@index');
         Route::get('/portions/create/{id}', 'PortionsController@create');
